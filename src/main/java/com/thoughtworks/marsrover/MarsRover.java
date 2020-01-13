@@ -2,30 +2,37 @@ package com.thoughtworks.marsrover;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 class MarsRover {
     private Location location;
+    private List<Location> locationHistories;
 
     MarsRover(int x, int y, Direction direction) {
         this.location = new Location(x, y, direction);
+        this.locationHistories = new ArrayList<>();
     }
 
     Location execute(List<Instruction> instructions) {
-        Instruction firstSingleInstruction = instructions.get(0);
-        switch (firstSingleInstruction) {
-            case M:
-                return executeM();
-            case L:
-                return executeL();
-            case R:
-                return executeR();
-        }
+        instructions.forEach(it -> {
+            switch (it) {
+                case M:
+                    executeM();
+                    break;
+                case L:
+                    executeL();
+                    break;
+                case R:
+                    executeR();
+                    break;
+            }
+        });
         return location;
     }
 
-    private Location executeR() {
+    private void executeR() {
         Direction direction = location.getDirection();
         switch (location.getDirection()) {
             case N:
@@ -41,10 +48,11 @@ class MarsRover {
                 direction = Direction.N;
                 break;
         }
-        return new Location(location.getX(), location.getY(), direction);
+        locationHistories.add(location);
+        location = new Location(location.getX(), location.getY(), direction);
     }
 
-    private Location executeL() {
+    private void executeL() {
         Direction direction = location.getDirection();
         switch (location.getDirection()) {
             case N:
@@ -60,10 +68,11 @@ class MarsRover {
                 direction = Direction.S;
                 break;
         }
-        return new Location(location.getX(), location.getY(), direction);
+        locationHistories.add(location);
+        location = new Location(location.getX(), location.getY(), direction);
     }
 
-    private Location executeM() {
+    private void executeM() {
         int y = location.getY();
         int x = location.getX();
         switch (location.getDirection()) {
@@ -80,6 +89,7 @@ class MarsRover {
                 x -= 1;
                 break;
         }
-        return new Location(x, y, location.getDirection());
+        locationHistories.add(location);
+        location = new Location(x, y, location.getDirection());
     }
 }
