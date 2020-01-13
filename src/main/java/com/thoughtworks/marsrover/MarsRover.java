@@ -14,10 +14,11 @@ class MarsRover {
 
     Location execute(List<Instruction> instructions) {
         Instruction firstSingleInstruction = instructions.get(0);
-        if (Instruction.M.equals(firstSingleInstruction)) {
-            return executeM();
-        } else if (Instruction.L.equals(firstSingleInstruction)) {
-            return executeL();
+        switch (firstSingleInstruction) {
+            case M:
+                return executeM();
+            case L:
+                return executeL();
         }
         return location;
     }
