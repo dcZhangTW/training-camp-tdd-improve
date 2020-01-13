@@ -13,7 +13,30 @@ class MarsRover {
     }
 
     Location execute(List<Instruction> instructions) {
+        Instruction firstSingleInstruction = instructions.get(0);
+        if (Instruction.M.equals(firstSingleInstruction)) {
+            return executeM();
+        }
+        return location;
+    }
 
-        return new Location(0, 1, Direction.N);
+    private Location executeM() {
+        int y = location.getY();
+        int x = location.getX();
+        switch (location.getDirection()) {
+            case N:
+                y += 1;
+                break;
+            case S:
+                y -= 1;
+                break;
+            case E:
+                x += 1;
+                break;
+            case W:
+                x -= 1;
+                break;
+        }
+        return new Location(x, y, location.getDirection());
     }
 }
