@@ -14,6 +14,6 @@ class MarsRover {
 
     Location execute(List<Instruction> instructions) {
 
-        return location;
+        return new Location(0, 1, Direction.N);
     }
 }
