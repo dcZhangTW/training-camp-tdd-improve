@@ -13,3 +13,5 @@ Tasking
 ===========
 1. Init Mars Rover: location & direction
 2. Receive a list of instruction return a new location & direction
+    1. Handle Two kind of instruction
+    2. Handle List of instruction
