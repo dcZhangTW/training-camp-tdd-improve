@@ -19,8 +19,29 @@ class MarsRover {
                 return executeM();
             case L:
                 return executeL();
+            case R:
+                return executeR();
         }
         return location;
+    }
+
+    private Location executeR() {
+        Direction direction = location.getDirection();
+        switch (location.getDirection()) {
+            case N:
+                direction = Direction.E;
+                break;
+            case S:
+                direction = Direction.W;
+                break;
+            case E:
+                direction = Direction.S;
+                break;
+            case W:
+                direction = Direction.N;
+                break;
+        }
+        return new Location(location.getX(), location.getY(), direction);
     }
 
     private Location executeL() {
