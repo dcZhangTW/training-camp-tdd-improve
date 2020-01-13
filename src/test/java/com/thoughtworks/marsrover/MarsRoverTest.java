@@ -37,4 +37,15 @@ public class MarsRoverTest {
         Assert.assertEquals(location.getX(), 0);
         Assert.assertEquals(location.getY(), -1);
     }
+
+    @Test
+    public void should_Rotate_L_90_single_instruction() {
+        MarsRover marsRover = new MarsRover(0,0, Direction.N);
+        List<Instruction> instructions = new ArrayList<>();
+        instructions.add(Instruction.L);
+        Location location = marsRover.execute(instructions);
+        Assert.assertEquals(location.getDirection(), Direction.W);
+        Assert.assertEquals(location.getX(), 0);
+        Assert.assertEquals(location.getY(), 0);
+    }
 }
