@@ -6,18 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-class MarsMap {
+public class MarsMap {
     private List<Position> pitList;
 
     MarsMap() {
         this.pitList = new ArrayList<>();
     }
 
-    void addPit(Position position) {
-        this.pitList.add(position);
-    }
-
-    boolean checkInPit(Position position) {
-        return this.pitList.stream().anyMatch(it -> it.equals(position));
+    public boolean checkInPit(Position position) {
+        double checkDbl = (double) (position.getX() + position.getY());
+        return Math.abs(Math.sin(checkDbl)) > 0.5;
     }
 }

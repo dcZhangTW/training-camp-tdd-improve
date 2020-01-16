@@ -18,6 +18,14 @@ class MarsRover {
         this.pitList = new ArrayList<>();
     }
 
+    void addPit(Position position) {
+        this.pitList.add(position);
+    }
+
+    boolean checkInPit(Position position) {
+        return this.pitList.stream().anyMatch(it -> it.equals(position));
+    }
+
     Location execute(List<Instruction> instructions) {
         instructions.forEach(this::executeInstruction);
         return location;

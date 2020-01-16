@@ -121,4 +121,12 @@ public class MarsRoverTest {
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.E);
     }
+
+    @Test
+    public void should_check_if_position_is_in_pitList() {
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N);;
+        marsRover.addPit(new Position(2, 5));
+        Assert.assertTrue(marsRover.checkInPit(new Position(2, 5)));
+        Assert.assertFalse(marsRover.checkInPit(new Position(2, 4)));
+    }
 }
