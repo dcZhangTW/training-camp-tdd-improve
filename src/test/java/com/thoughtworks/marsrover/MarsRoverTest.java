@@ -12,6 +12,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class MarsRoverTest {
+
     private MarsMap marsMap;
 
     @Before
@@ -23,8 +24,8 @@ public class MarsRoverTest {
     public void should_init_a_mars_rover_with_location_and_direction() {
         MarsRover marsRover = new MarsRover(0, 0, Direction.N);
         Location location = marsRover.getLocation();
-        Assert.assertEquals(location.getX(), 0);
-        Assert.assertEquals(location.getY(), 0);
+        Assert.assertEquals(location.getPosition().getX(), 0);
+        Assert.assertEquals(location.getPosition().getY(), 0);
         Assert.assertEquals(location.getDirection(), Direction.N);
     }
 
@@ -35,8 +36,8 @@ public class MarsRoverTest {
         instructions.add(Instruction.M);
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.N);
-        Assert.assertEquals(location.getX(), 0);
-        Assert.assertEquals(location.getY(), 1);
+        Assert.assertEquals(location.getPosition().getX(), 0);
+        Assert.assertEquals(location.getPosition().getY(), 1);
     }
 
     @Test
@@ -46,8 +47,8 @@ public class MarsRoverTest {
         instructions.add(Instruction.M);
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.S);
-        Assert.assertEquals(location.getX(), 0);
-        Assert.assertEquals(location.getY(), -1);
+        Assert.assertEquals(location.getPosition().getX(), 0);
+        Assert.assertEquals(location.getPosition().getY(), -1);
     }
 
     @Test
@@ -57,8 +58,8 @@ public class MarsRoverTest {
         instructions.add(Instruction.L);
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.W);
-        Assert.assertEquals(location.getX(), 0);
-        Assert.assertEquals(location.getY(), 0);
+        Assert.assertEquals(location.getPosition().getX(), 0);
+        Assert.assertEquals(location.getPosition().getY(), 0);
     }
 
     @Test
@@ -68,8 +69,8 @@ public class MarsRoverTest {
         instructions.add(Instruction.R);
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.E);
-        Assert.assertEquals(location.getX(), 0);
-        Assert.assertEquals(location.getY(), 0);
+        Assert.assertEquals(location.getPosition().getX(), 0);
+        Assert.assertEquals(location.getPosition().getY(), 0);
     }
 
     @Test
@@ -84,8 +85,8 @@ public class MarsRoverTest {
         instructions.add(Instruction.M);
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.N);
-        Assert.assertEquals(location.getX(), 1);
-        Assert.assertEquals(location.getY(), 3);
+        Assert.assertEquals(location.getPosition().getX(), 1);
+        Assert.assertEquals(location.getPosition().getY(), 3);
     }
 
     @Test
@@ -96,8 +97,8 @@ public class MarsRoverTest {
         instructions.add(Instruction.M);
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.N);
-        Assert.assertEquals(location.getX(), 0);
-        Assert.assertEquals(location.getY(), -1);
+        Assert.assertEquals(location.getPosition().getX(), 0);
+        Assert.assertEquals(location.getPosition().getY(), -1);
     }
 
     @Test
@@ -110,8 +111,8 @@ public class MarsRoverTest {
         instructions.add(Instruction.M);
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.N);
-        Assert.assertEquals(location.getX(), 0);
-        Assert.assertEquals(location.getY(), 0);
+        Assert.assertEquals(location.getPosition().getX(), 0);
+        Assert.assertEquals(location.getPosition().getY(), 0);
     }
 
     @Test
@@ -144,8 +145,8 @@ public class MarsRoverTest {
 
     @Test
     public void should_record_pit() {
-        MarsRover marsRover = new MarsRover(0, 0, Direction.N);
-        when(marsMap.checkInPit(any())).thenReturn(true);
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N, marsMap);
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(true);
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.M);
         marsRover.execute(instructions);

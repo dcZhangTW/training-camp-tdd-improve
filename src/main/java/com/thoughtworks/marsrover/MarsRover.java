@@ -11,11 +11,20 @@ class MarsRover {
     private List<Location> locationHistories;
     private int step = 1;
     private List<Position> pitList;
+    private MarsMap map;
+
+    MarsRover(int x, int y, Direction direction, MarsMap marsMap) {
+        this.location = new Location(x, y, direction);
+        this.locationHistories = new ArrayList<>();
+        this.pitList = new ArrayList<>();
+        this.map = marsMap;
+    }
 
     MarsRover(int x, int y, Direction direction) {
         this.location = new Location(x, y, direction);
         this.locationHistories = new ArrayList<>();
         this.pitList = new ArrayList<>();
+        this.map = new MarsMap();
     }
 
     void addPit(Position position) {
@@ -47,6 +56,9 @@ class MarsRover {
                 executeB();
                 break;
         }
+        if (map.checkInPit(newLocation.getPosition())) {
+            pitList.add(newLocation.getPosition());
+        }
         locationHistories.add(location);
         location = newLocation;
     }
@@ -58,20 +70,18 @@ class MarsRover {
     private Location executeR() {
         Direction direction = location.getDirection();
         Direction newDirection = Direction.of((direction.value + ((4 + step) % 4)) % 4);
-        locationHistories.add(location);
-        return new Location(location.getX(), location.getY(), newDirection);
+        return new Location(location.getPosition().getX(), location.getPosition().getY(), newDirection);
     }
 
     private Location executeL() {
         Direction direction = location.getDirection();
         Direction newDirection = Direction.of((direction.value + ((4 - step) % 4)) % 4);
-        locationHistories.add(location);
-        return new Location(location.getX(), location.getY(), newDirection);
+        return new Location(location.getPosition().getX(), location.getPosition().getY(), newDirection);
     }
 
     private Location executeM() {
-        int y = location.getY();
-        int x = location.getX();
+        int y = location.getPosition().getY();
+        int x = location.getPosition().getX();
         switch (location.getDirection()) {
             case N:
                 y += step;
@@ -86,7 +96,6 @@ class MarsRover {
                 x -= step;
                 break;
         }
-        locationHistories.add(location);
         return new Location(x, y, location.getDirection());
     }
 }

@@ -6,8 +6,6 @@ import org.junit.Test;
 import java.util.Collections;
 
 public class MarsMapTest {
-
-
     @Test
     public void should_init_map_with_empty_pit() {
         MarsMap marsMap = new MarsMap();
