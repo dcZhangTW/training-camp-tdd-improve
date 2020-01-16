@@ -42,42 +42,16 @@ class MarsRover {
 
     private void executeR() {
         Direction direction = location.getDirection();
-        switch (location.getDirection()) {
-            case N:
-                direction = Direction.E;
-                break;
-            case S:
-                direction = Direction.W;
-                break;
-            case E:
-                direction = Direction.S;
-                break;
-            case W:
-                direction = Direction.N;
-                break;
-        }
+        Direction newDirection = Direction.of((direction.value + 1) % 4);
         locationHistories.add(location);
-        location = new Location(location.getX(), location.getY(), direction);
+        location = new Location(location.getX(), location.getY(), newDirection);
     }
 
     private void executeL() {
         Direction direction = location.getDirection();
-        switch (location.getDirection()) {
-            case N:
-                direction = Direction.W;
-                break;
-            case S:
-                direction = Direction.E;
-                break;
-            case E:
-                direction = Direction.N;
-                break;
-            case W:
-                direction = Direction.S;
-                break;
-        }
+        Direction newDirection = Direction.of((direction.value + 3) % 4);
         locationHistories.add(location);
-        location = new Location(location.getX(), location.getY(), direction);
+        location = new Location(location.getX(), location.getY(), newDirection);
     }
 
     private void executeM() {
