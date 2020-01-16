@@ -1,12 +1,24 @@
 package com.thoughtworks.marsrover;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 public class MarsRoverTest {
+    private MarsMap marsMap;
+
+    @Before
+    public void setUp() {
+        marsMap = mock(MarsMap.class);
+    }
+
     @Test
     public void should_init_a_mars_rover_with_location_and_direction() {
         MarsRover marsRover = new MarsRover(0, 0, Direction.N);
@@ -128,5 +140,15 @@ public class MarsRoverTest {
         marsRover.addPit(new Position(2, 5));
         Assert.assertTrue(marsRover.checkInPit(new Position(2, 5)));
         Assert.assertFalse(marsRover.checkInPit(new Position(2, 4)));
+    }
+
+    @Test
+    public void should_record_pit() {
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N);
+        when(marsMap.checkInPit(any())).thenReturn(true);
+        List<Instruction> instructions = new ArrayList<>();
+        instructions.add(Instruction.M);
+        marsRover.execute(instructions);
+        Assert.assertTrue(new Position(0, 1).equals(marsRover.getPitList().get(0)));
     }
 }
