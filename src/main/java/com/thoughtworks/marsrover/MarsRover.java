@@ -19,44 +19,49 @@ class MarsRover {
     }
 
     Location execute(List<Instruction> instructions) {
-        instructions.forEach(it -> {
-            switch (it) {
-                case M:
-                    executeM();
-                    break;
-                case L:
-                    executeL();
-                    break;
-                case R:
-                    executeR();
-                    break;
-                case B:
-                    executeB();
-                    break;
-            }
-        });
+        instructions.forEach(this::executeInstruction);
         return location;
+    }
+
+    private void executeInstruction(Instruction instruction) {
+        Location newLocation = location;
+        switch (instruction) {
+            case M:
+                newLocation = executeM();
+                break;
+            case L:
+                newLocation = executeL();
+                break;
+            case R:
+                newLocation = executeR();
+                break;
+            case B:
+                executeB();
+                break;
+        }
+        locationHistories.add(location);
+        location = newLocation;
     }
 
     private void executeB() {
         step = 0 - step;
     }
 
-    private void executeR() {
+    private Location executeR() {
         Direction direction = location.getDirection();
         Direction newDirection = Direction.of((direction.value + ((4 + step) % 4)) % 4);
         locationHistories.add(location);
-        location = new Location(location.getX(), location.getY(), newDirection);
+        return new Location(location.getX(), location.getY(), newDirection);
     }
 
-    private void executeL() {
+    private Location executeL() {
         Direction direction = location.getDirection();
         Direction newDirection = Direction.of((direction.value + ((4 - step) % 4)) % 4);
         locationHistories.add(location);
-        location = new Location(location.getX(), location.getY(), newDirection);
+        return new Location(location.getX(), location.getY(), newDirection);
     }
 
-    private void executeM() {
+    private Location executeM() {
         int y = location.getY();
         int x = location.getX();
         switch (location.getDirection()) {
@@ -74,6 +79,6 @@ class MarsRover {
                 break;
         }
         locationHistories.add(location);
-        location = new Location(x, y, location.getDirection());
+        return new Location(x, y, location.getDirection());
     }
 }
