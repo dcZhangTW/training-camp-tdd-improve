@@ -49,7 +49,7 @@ class MarsRover {
 
     private void executeL() {
         Direction direction = location.getDirection();
-        Direction newDirection = Direction.of((direction.value + 3) % 4);
+        Direction newDirection = Direction.of((direction.value + ((4 - step) % 4)) % 4);
         locationHistories.add(location);
         location = new Location(location.getX(), location.getY(), newDirection);
     }
