@@ -87,4 +87,18 @@ public class MarsRoverTest {
         Assert.assertEquals(location.getX(), 0);
         Assert.assertEquals(location.getY(), -1);
     }
+
+    @Test
+    public void should_back_to_normal_when_get_second_B() {
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N);
+        List<Instruction> instructions = new ArrayList<>();
+        instructions.add(Instruction.B);
+        instructions.add(Instruction.M);
+        instructions.add(Instruction.B);
+        instructions.add(Instruction.M);
+        Location location = marsRover.execute(instructions);
+        Assert.assertEquals(location.getDirection(), Direction.N);
+        Assert.assertEquals(location.getX(), 0);
+        Assert.assertEquals(location.getY(), 0);
+    }
 }
