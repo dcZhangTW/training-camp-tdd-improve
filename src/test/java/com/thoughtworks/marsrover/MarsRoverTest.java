@@ -184,7 +184,7 @@ public class MarsRoverTest {
     @Test
     public void should_regardless_of_pit_position_instruction() {
         MarsRover marsRover = new MarsRover(0, 0, Direction.N, marsMap);
-        marsRover.addPit(new Position(-1, 0));
+        marsRover.addPit(new Position(-1, 1));
         when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.M);
@@ -194,6 +194,7 @@ public class MarsRoverTest {
         instructions.add(Instruction.M);
         instructions.add(Instruction.M);
         Location location = marsRover.execute(instructions);
-        Assert.assertTrue(location.getPosition().equals(new Position(0, -1)));
+        Assert.assertEquals(location.getPosition().getX(), 0);
+        Assert.assertEquals(location.getPosition().getY(), -1);
     }
 }

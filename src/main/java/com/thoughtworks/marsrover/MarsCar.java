@@ -24,7 +24,12 @@ class MarsCar {
         this.locationHistories.add(this.location);
     }
 
-    Location execute(Instruction instruction) {
+    void doInstruction(Location newLocation) {
+        locationHistories.add(newLocation);
+        location = newLocation;
+    }
+
+    Location preCalculateLocation(Instruction instruction) {
         Location newLocation = location;
         switch (instruction) {
             case M:
@@ -40,9 +45,7 @@ class MarsCar {
                 executeB();
                 break;
         }
-        locationHistories.add(newLocation);
-        location = newLocation;
-        return location;
+        return newLocation;
     }
 
     private void executeB() {

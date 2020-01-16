@@ -29,9 +29,16 @@ class MarsRover {
     Location execute(List<Instruction> instructions) {
         Location finallyLocation = car.getLocation();
         for (Instruction instruction : instructions) {
-            Location newLocation = car.execute(instruction);
+            Location newLocation = car.preCalculateLocation(instruction);
             Position carPosition = newLocation.getPosition();
+
+            if (checkInPit(carPosition)) {
+                continue;
+            }
+
+            car.doInstruction(newLocation);
             finallyLocation = newLocation;
+
             if (map.checkInPit(carPosition)) {
                 pitList.add(carPosition);
                 scrappedCars.add(car);
