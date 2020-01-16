@@ -22,8 +22,8 @@ public class MarsRoverTest {
 
     @Test
     public void should_init_a_mars_rover_with_location_and_direction() {
-        MarsRover marsRover = new MarsRover(0, 0, Direction.N);
-        Location location = marsRover.getLocation();
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N, marsMap);
+        Location location = marsRover.getCar().getLocation();
         Assert.assertEquals(location.getPosition().getX(), 0);
         Assert.assertEquals(location.getPosition().getY(), 0);
         Assert.assertEquals(location.getDirection(), Direction.N);
@@ -31,7 +31,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_Move_1_when_face_N_and_get_single_M() {
-        MarsRover marsRover = new MarsRover(0,0, Direction.N);
+        MarsRover marsRover = new MarsRover(0,0, Direction.N, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.M);
         Location location = marsRover.execute(instructions);
@@ -42,7 +45,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_Move_1_when_face_S_and_get_single_M() {
-        MarsRover marsRover = new MarsRover(0,0, Direction.S);
+        MarsRover marsRover = new MarsRover(0,0, Direction.S, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.M);
         Location location = marsRover.execute(instructions);
@@ -53,7 +59,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_Rotate_L_90_single_instruction() {
-        MarsRover marsRover = new MarsRover(0,0, Direction.N);
+        MarsRover marsRover = new MarsRover(0,0, Direction.N, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.L);
         Location location = marsRover.execute(instructions);
@@ -64,7 +73,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_Rotate_R_90_single_instruction() {
-        MarsRover marsRover = new MarsRover(0,0, Direction.N);
+        MarsRover marsRover = new MarsRover(0,0, Direction.N, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.R);
         Location location = marsRover.execute(instructions);
@@ -75,7 +87,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_handle_multiple_instructions() {
-        MarsRover marsRover = new MarsRover(0,0, Direction.N);
+        MarsRover marsRover = new MarsRover(0,0, Direction.N, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.M);
         instructions.add(Instruction.M);
@@ -91,7 +106,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_handle_B_to_back() {
-        MarsRover marsRover = new MarsRover(0,0, Direction.N);
+        MarsRover marsRover = new MarsRover(0,0, Direction.N, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.B);
         instructions.add(Instruction.M);
@@ -103,7 +121,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_back_to_normal_when_get_second_B() {
-        MarsRover marsRover = new MarsRover(0, 0, Direction.N);
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.B);
         instructions.add(Instruction.M);
@@ -117,7 +138,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_handle_B_With_R() {
-        MarsRover marsRover = new MarsRover(0, 0, Direction.N);
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.B);
         instructions.add(Instruction.R);
@@ -127,7 +151,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_handle_B_with_L() {
-        MarsRover marsRover = new MarsRover(0, 0, Direction.N);
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N, marsMap);
+
+        when(marsMap.checkInPit(any(Position.class))).thenReturn(false);
+
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.B);
         instructions.add(Instruction.L);
@@ -137,7 +164,7 @@ public class MarsRoverTest {
 
     @Test
     public void should_check_if_position_is_in_pitList() {
-        MarsRover marsRover = new MarsRover(0, 0, Direction.N);;
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N, marsMap);;
         marsRover.addPit(new Position(2, 5));
         Assert.assertTrue(marsRover.checkInPit(new Position(2, 5)));
         Assert.assertFalse(marsRover.checkInPit(new Position(2, 4)));
