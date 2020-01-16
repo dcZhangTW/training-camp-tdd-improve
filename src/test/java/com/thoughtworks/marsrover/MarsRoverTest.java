@@ -174,9 +174,10 @@ public class MarsRoverTest {
     public void should_record_pit() {
         MarsRover marsRover = new MarsRover(0, 0, Direction.N, marsMap);
         when(marsMap.checkInPit(any(Position.class))).thenReturn(true);
+        Assert.assertFalse(marsRover.checkInPit(new Position(0, 1)));
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(Instruction.M);
         marsRover.execute(instructions);
-        Assert.assertTrue(new Position(0, 1).equals(marsRover.getPitList().get(0)));
+        Assert.assertTrue(marsRover.checkInPit(new Position(0, 1)));
     }
 }

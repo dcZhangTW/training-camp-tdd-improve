@@ -8,22 +8,22 @@ import java.util.List;
 @Getter
 class MarsRover {
     private MarsCar car;
-    private int step = 1;
-    private List<Position> pitList;
     private MarsMap map;
+    private int step = 1;
+    private static List<Position> pitList = new ArrayList<>();;
+    private static List<MarsCar> scrappedCars = new ArrayList<>();
 
     MarsRover(int x, int y, Direction direction, MarsMap marsMap) {
         this.car = new MarsCar(x, y, direction);
-        this.pitList = new ArrayList<>();
         this.map = marsMap;
     }
 
     void addPit(Position position) {
-        this.pitList.add(position);
+        pitList.add(position);
     }
 
     boolean checkInPit(Position position) {
-        return this.pitList.stream().anyMatch(it -> it.equals(position));
+        return pitList.stream().anyMatch(it -> it.equals(position));
     }
 
     Location execute(List<Instruction> instructions) {
@@ -34,6 +34,7 @@ class MarsRover {
             finallyLocation = newLocation;
             if (map.checkInPit(carPosition)) {
                 pitList.add(carPosition);
+                scrappedCars.add(car);
                 car = new MarsCar(car.getLocationHistories().get(car.getLocationHistories().size() - 1));
                 break;
             }
