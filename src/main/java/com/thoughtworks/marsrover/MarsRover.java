@@ -10,10 +10,12 @@ class MarsRover {
     private Location location;
     private List<Location> locationHistories;
     private int step = 1;
+    private List<Position> pitList;
 
     MarsRover(int x, int y, Direction direction) {
         this.location = new Location(x, y, direction);
         this.locationHistories = new ArrayList<>();
+        this.pitList = new ArrayList<>();
     }
 
     Location execute(List<Instruction> instructions) {
