@@ -111,4 +111,14 @@ public class MarsRoverTest {
         Location location = marsRover.execute(instructions);
         Assert.assertEquals(location.getDirection(), Direction.W);
     }
+
+    @Test
+    public void should_handle_B_with_L() {
+        MarsRover marsRover = new MarsRover(0, 0, Direction.N);
+        List<Instruction> instructions = new ArrayList<>();
+        instructions.add(Instruction.B);
+        instructions.add(Instruction.L);
+        Location location = marsRover.execute(instructions);
+        Assert.assertEquals(location.getDirection(), Direction.E);
+    }
 }
