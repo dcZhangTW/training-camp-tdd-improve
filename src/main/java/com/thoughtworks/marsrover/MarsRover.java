@@ -9,6 +9,7 @@ import java.util.List;
 class MarsRover {
     private Location location;
     private List<Location> locationHistories;
+    private int step = 1;
 
     MarsRover(int x, int y, Direction direction) {
         this.location = new Location(x, y, direction);
@@ -27,9 +28,16 @@ class MarsRover {
                 case R:
                     executeR();
                     break;
+                case B:
+                    executeB();
+                    break;
             }
         });
         return location;
+    }
+
+    private void executeB() {
+        step = 0 - step;
     }
 
     private void executeR() {
@@ -77,16 +85,16 @@ class MarsRover {
         int x = location.getX();
         switch (location.getDirection()) {
             case N:
-                y += 1;
+                y += step;
                 break;
             case S:
-                y -= 1;
+                y -= step;
                 break;
             case E:
-                x += 1;
+                x += step;
                 break;
             case W:
-                x -= 1;
+                x -= step;
                 break;
         }
         locationHistories.add(location);
