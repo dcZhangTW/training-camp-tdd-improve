@@ -3,7 +3,10 @@ package com.thoughtworks.marsrover;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Getter
 class MarsCar {
@@ -82,5 +85,9 @@ class MarsCar {
                 break;
         }
         return new Location(x, y, location.getDirection());
+    }
+
+    Location getLastLocation() {
+        return locationHistories.get(locationHistories.size() - 1);
     }
 }

@@ -42,7 +42,7 @@ class MarsRover {
             if (map.checkInPit(carPosition)) {
                 pitList.add(carPosition);
                 scrappedCars.add(car);
-                car = new MarsCar(car.getLocationHistories().get(car.getLocationHistories().size() - 1));
+                car = new MarsCar(car.getLastLocation());
                 break;
             }
         }
