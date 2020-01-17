@@ -10,8 +10,8 @@ class MarsRover {
     private MarsCar car;
     private MarsMap map;
     private int step = 1;
-    private static List<Position> pitList = new ArrayList<>();;
-    private static List<MarsCar> scrappedCars = new ArrayList<>();
+    private List<Position> pitList = new ArrayList<>();;
+    private List<MarsCar> scrappedCars = new ArrayList<>();
 
     MarsRover(int x, int y, Direction direction, MarsMap marsMap) {
         this.car = new MarsCar(x, y, direction);
